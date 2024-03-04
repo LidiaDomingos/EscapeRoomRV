@@ -5,15 +5,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class XRSocketTagInteractor : XRSocketInteractor
 {
-    public string targetTag;
+    public List<string> targetTag = new List<string> {"BookGreen", "BookBlue", "BookBrown"};
 
     public override bool CanHover(IXRHoverInteractable interactable)
     {
-        return base.CanHover(interactable) && interactable.transform.tag == targetTag;
+        return base.CanHover(interactable) && targetTag.Contains(interactable.transform.tag);
     }
 
     public override bool CanSelect(IXRSelectInteractable interactable)
     {
-        return base.CanSelect(interactable) && interactable.transform.tag == targetTag;
+        return base.CanSelect(interactable) && targetTag.Contains(interactable.transform.tag);
     }
 }
