@@ -16,6 +16,9 @@ public class NewLaserScript : MonoBehaviour
     private Ray ray;
     private Vector3 direction;
 
+    public float forcaDeEmpurrao = 10f;
+    public string tagAlvo = "blueBall";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,8 @@ public class NewLaserScript : MonoBehaviour
     void Update()
     {
         ReflectLaser();
+        TriggerBall();
+
     }
 
     void ReflectLaser()
@@ -46,7 +51,22 @@ public class NewLaserScript : MonoBehaviour
                 _lineRenderer.SetPosition(_lineRenderer.positionCount-1, hit.point);
                 remainLength -= Vector3.Distance(ray.origin, hit.point);
 
+                Debug.Log("Raio atingiu um objeto, com a tag: " + hit.collider.tag);
                 ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));
+
+                if (hit.collider.CompareTag("BlueBall"))
+                {
+                    Debug.Log("Vai movimentar a tag: " + hit.collider.tag);
+
+                    // Aplica a força ao objeto
+                    Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        Vector3 direcao = ray.direction; // Use a direção do raio como a direção da força
+                        rb.AddForce(direcao * forcaDeEmpurrao, ForceMode.Impulse);
+                    }
+                }
+
             }
             else
             {
@@ -71,5 +91,32 @@ public class NewLaserScript : MonoBehaviour
         }
     }
 
-
+    void TriggerBall()
+    {
+        RaycastHit hit;
+        // Use o ponto de origem do controlador VR em vez do mouse
+        Ray ray = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(ray, out hit) )
+        {
+            // Verifica se o raio atingiu um objeto com a tag específica
+            if (hit.collider.CompareTag("BlueBall"))
+            {
+                // Aplica a força ao objeto
+                Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    Vector3 direcao = ray.direction; // Use a direção do raio como a direção da força
+                    rb.AddForce(direcao * forcaDeEmpurrao, ForceMode.Impulse);
+                }
+            }
+            else
+            {
+                Debug.Log("Raio atingiu um objeto, mas não com a tag esperada: " + hit.collider.tag);
+            }
+        }
+        else
+        {
+            Debug.Log("Raio não atingiu nenhum objeto.");
+        }
+    }
 }

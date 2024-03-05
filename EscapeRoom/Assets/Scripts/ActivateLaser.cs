@@ -24,7 +24,7 @@ public class ActivateLaser : MonoBehaviour
         if (lineRenderer != null)
         {
             // Desativa o LineRenderer no início
-            lineRenderer.enabled = false;
+            lineRenderer.enabled = true;
         }
         else
         {
