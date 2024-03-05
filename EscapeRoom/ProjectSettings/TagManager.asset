@@ -9,6 +9,7 @@ TagManager:
   - Ignite
   - Book
   - Ghost
+  - BlueBall
   layers:
   - Default
   - TransparentFX

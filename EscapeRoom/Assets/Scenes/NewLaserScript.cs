@@ -8,6 +8,7 @@ public class NewLaserScript : MonoBehaviour
     public LayerMask layerMask;
     public float defaultLength = 50;
     public int numberReflect = 5;
+    public float forcaDeEmpurrao = 5f;
 
 
     private LineRenderer _lineRenderer;
@@ -47,12 +48,26 @@ public class NewLaserScript : MonoBehaviour
                 remainLength -= Vector3.Distance(ray.origin, hit.point);
 
                 ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));
+
+                if (hit.collider.CompareTag("BlueBall"))
+                {
+                    Debug.Log("Vai movimentar a tag: " + hit.collider.tag);
+                    // Aplica a força ao objeto
+                    Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        Vector3 direcao = ray.direction; // Use a direção do raio como a direção da força
+                        rb.AddForce(direcao * forcaDeEmpurrao, ForceMode.Impulse);
+                    }
+                }
             }
+
             else
             {
                 _lineRenderer.positionCount += 1;
                 _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, ray.origin + (ray.direction * remainLength));
             }
+            
 
         }
     }
