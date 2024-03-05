@@ -8,6 +8,7 @@ TagManager:
   - Right Hand
   - Ignite
   - Book
+  - Ghost
   layers:
   - Default
   - TransparentFX
