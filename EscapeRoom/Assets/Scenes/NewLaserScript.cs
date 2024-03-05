@@ -29,7 +29,6 @@ public class NewLaserScript : MonoBehaviour
     void Update()
     {
         ReflectLaser();
-        TriggerBall();
 
     }
 
@@ -41,14 +40,14 @@ public class NewLaserScript : MonoBehaviour
         _lineRenderer.SetPosition(0, transform.position);
 
         float remainLength = defaultLength;
-        
+
         for (int i = 0; i < numberReflect; i++)
         {
             // Does the ray intersect any objects
-            if (Physics.Raycast(ray.origin, ray.direction , out hit, remainLength, layerMask))
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, remainLength, layerMask))
             {
                 _lineRenderer.positionCount += 1;
-                _lineRenderer.SetPosition(_lineRenderer.positionCount-1, hit.point);
+                _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, hit.point);
                 remainLength -= Vector3.Distance(ray.origin, hit.point);
 
                 Debug.Log("Raio atingiu um objeto, com a tag: " + hit.collider.tag);
@@ -66,57 +65,64 @@ public class NewLaserScript : MonoBehaviour
                         rb.AddForce(direcao * forcaDeEmpurrao, ForceMode.Impulse);
                     }
                 }
+                else if (hit.collider.CompareTag("Chain"))
+                {
+                    Debug.Log("Desativando objeto para a tag: " + hit.collider.tag);
 
+                    // Desative o objeto atingido
+                    hit.collider.gameObject.SetActive(false);
+
+                }
+                else
+                {
+                    _lineRenderer.positionCount += 1;
+                    _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, ray.origin + (ray.direction * remainLength));
+                }
+
+            }
+        }
+
+        void NormalLaser()
+        {
+            _lineRenderer.SetPosition(0, transform.position);
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, defaultLength, layerMask))
+            {
+                _lineRenderer.SetPosition(1, hit.point);
             }
             else
             {
-                _lineRenderer.positionCount += 1;
-                _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, ray.origin + (ray.direction * remainLength));
+                _lineRenderer.SetPosition(1, transform.position + (transform.forward * defaultLength));
             }
-
         }
-    }
 
-    void NormalLaser()
-    {
-        _lineRenderer.SetPosition(0, transform.position);
-
-        if( Physics.Raycast(transform.position,transform.forward, out hit, defaultLength, layerMask))
+        void TriggerBall()
         {
-            _lineRenderer.SetPosition(1,hit.point);
-        }
-        else
-        {
-            _lineRenderer.SetPosition(1, transform.position + (transform.forward * defaultLength));
-        }
-    }
-
-    void TriggerBall()
-    {
-        RaycastHit hit;
-        // Use o ponto de origem do controlador VR em vez do mouse
-        Ray ray = new Ray(transform.position, transform.forward);
-        if (Physics.Raycast(ray, out hit) )
-        {
-            // Verifica se o raio atingiu um objeto com a tag específica
-            if (hit.collider.CompareTag("BlueBall"))
+            RaycastHit hit;
+            // Use o ponto de origem do controlador VR em vez do mouse
+            Ray ray = new Ray(transform.position, transform.forward);
+            if (Physics.Raycast(ray, out hit))
             {
-                // Aplica a força ao objeto
-                Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
-                if (rb != null)
+                // Verifica se o raio atingiu um objeto com a tag específica
+                if (hit.collider.CompareTag("BlueBall"))
                 {
-                    Vector3 direcao = ray.direction; // Use a direção do raio como a direção da força
-                    rb.AddForce(direcao * forcaDeEmpurrao, ForceMode.Impulse);
+                    // Aplica a força ao objeto
+                    Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        Vector3 direcao = ray.direction; // Use a direção do raio como a direção da força
+                        rb.AddForce(direcao * forcaDeEmpurrao, ForceMode.Impulse);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Raio atingiu um objeto, mas não com a tag esperada: " + hit.collider.tag);
                 }
             }
             else
             {
-                Debug.Log("Raio atingiu um objeto, mas não com a tag esperada: " + hit.collider.tag);
+                Debug.Log("Raio não atingiu nenhum objeto.");
             }
-        }
-        else
-        {
-            Debug.Log("Raio não atingiu nenhum objeto.");
         }
     }
 }

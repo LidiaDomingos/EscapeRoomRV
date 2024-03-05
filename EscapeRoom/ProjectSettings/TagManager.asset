@@ -9,6 +9,7 @@ TagManager:
   - Ignite
   - Book
   - BlueBall
+  - Chain
   layers:
   - Default
   - TransparentFX
