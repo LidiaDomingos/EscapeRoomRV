@@ -2,7 +2,7 @@
 
 The game was developed for the Virtual Reality course at Insper. It is inspired by the concept of an escape room, offering an immersive experience within a virtual environment.
 
-![alt text](<Captura de tela 2024-03-06 070725.png>)
+![alt text](<photos/Logo.png>)
 
 developed by @LidiaDomingos and @LinkolnR
 
@@ -17,3 +17,13 @@ References include:
 4. [Creating a 3D laser](https://www.youtube.com/watch?v=8YsoWh78gDk&t=6s)
 
 You can download it at [Itch.io](https://lidiaacd.itch.io/orbsescape)!
+
+![alt text](<photos/Menu.png>)
+
+![alt text](<photos/Find.png>)
+
+![alt text](<photos/Door.png>)
+
+![alt text](<photos/FireBoy.png>)
+
+![alt text](<photos/Wand.png>)
