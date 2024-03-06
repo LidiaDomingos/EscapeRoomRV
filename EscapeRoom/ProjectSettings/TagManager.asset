@@ -10,6 +10,7 @@ TagManager:
   - Book
   - Ghost
   - BlueBall
+  - Character
   layers:
   - Default
   - TransparentFX
