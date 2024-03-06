@@ -15,3 +15,5 @@ References include:
 2. [VR Beginner](https://learn.unity.com/project/vr-beginner-the-escape-room)
 3. [Escape Room Tutorial](https://www.youtube.com/watch?v=8of3Dms-wWM&t=3562s)
 4. [Creating a 3D laser](https://www.youtube.com/watch?v=8YsoWh78gDk&t=6s)
+
+You can download it at [Itch.io](https://lidiaacd.itch.io/orbsescape)!
