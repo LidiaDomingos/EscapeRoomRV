@@ -14,3 +14,4 @@ References include:
 1. [Let's make a VR Game](https://www.youtube.com/watch?v=QCvqimfrMZw&list=PLpEoiloH-4eM-fykn_3_QcJ-A_MIJF5B9)
 2. [VR Beginner](https://learn.unity.com/project/vr-beginner-the-escape-room)
 3. [Escape Room Tutorial](https://www.youtube.com/watch?v=8of3Dms-wWM&t=3562s)
+4. [Creating a 3D laser](https://www.youtube.com/watch?v=8YsoWh78gDk&t=6s)
